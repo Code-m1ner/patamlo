@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bag_tools %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row no-gutters">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+    <div class="container mt-5 min-height">
+        <div class="row">
+            <div class="col text-center mb-3">
+                <h2 class="title-text text-uppercase">Contact Us</h2>
+                <hr class="w-50 mb-4 mx-auto">
+            </div>
+        </div>
+        <hr>
+        <div class="row my-4">
+            <!--Address and contact information-->
+            <div class="col-sm-4 offset-sm-2 content-text mb-5 center-text-small">
+                <h5 class="title-text mb-3">Address:</h5>
+                <p class="mb-1">Easy Store</p>
+                <p class="mb-1">East Avenue </p>
+                <p class="mb-1">Mandela Road</p>
+                <p class="mb-1">Arusha</p>
+                <p class="mb-1">Plot 745</p>
+                <br>
+                <h5 class="title-text mb-3">Contact:</h5>
+                <p class="mb-1">0365 132 6476</p>
+                <p class="mb-1">esyapp@gmail.com</p>
+            </div>
+            <!--Opening Times Table-->
+            <div class="col-sm-4 content-text center-text-small">
+                <h5 class="title-text mb-3">Opening Times:</h5>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Opens</th>
+                            <th>Closes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-muted">
+                        <tr>
+                            <td>Monday</td>
+                            <td>09:00</td>
+                            <td>18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>09:00</td>
+                            <td>18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>09:00</td>
+                            <td>18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>09:00</td>
+                            <td>20:00</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>09:00</td>
+                            <td>18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>10:00</td>
+                            <td>16:00</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>10:00</td>
+                            <td>14:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <!--Contact Form-->
+        <div class="row my-4">
+            <div class="col-md-8 offset-md-2 content-text">
+                <p class="text-center">Alternatively please complete the form below. Our team aim to respond to all requests within 24 hours.</p>
+                <form method="POST" action="{% url 'contact' %}" class="form mb-2 content-text" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="mb-2 text-center">
+                        <a href="{% url 'home' %}" class="btn content-text buttons-general-2 text-uppercase fs-6 mb-2 px-2 fs-6" role="button">Cancel</a>
+                        <button class="btn content-text buttons-general-2 text-uppercase fs-6 mb-2">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+{% endblock %}

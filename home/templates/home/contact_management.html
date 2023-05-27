@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row no-gutters">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+    <div class="container mt-5 min-height">
+        <div class="row">
+            <div class="col text-center mb-3">
+                <h2 class="title-text text-uppercase">Contact Management</h2>
+                <hr class="w-50 mb-4 mx-auto">
+            </div>
+        </div>
+        <div class="row my-4">
+            {% if contacts %}
+                <!--Table displays on small devices and larger-->
+                <div class="col-12 d-none d-sm-block">
+                    <table class="table table-striped text-center">
+                        <thead class="title-text text-uppercase">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Responded</th>
+                            </tr>
+                        </thead>
+                        <tbody class="content-text">
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td class="align-middle"><a href="{% url 'contact_detail' contact.id %}" class="unstyled fs-6"><strong>{{ contact.name }}</strong></a></td>
+                                    <td class="align-middle">{{ contact.email }}</td>
+                                    <td class="align-middle">{{ contact.subject }}</td>
+                                    <td class="align-middle"><button data-toggle="modal" data-target="#deleteContactModal" data-id="{{ contact.subject }}" data-url="{% url 'delete_contact' contact.id %}" class="btn content-text buttons-general text-black text-uppercase fs-6">Replied</button></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>    
+                </div>
+                <!--Displays on extra small devices-->
+                <div class="col-12 d-block d-sm-none text-center content-text">
+                    <hr>
+                    {% for contact in contacts %}
+                        <p><span class="text-muted pe-3">Name:</span><a href="{% url 'contact_detail' contact.id %}" class="unstyled fs-6"><strong>{{ contact.name }}</strong></a></p>
+                        <p><span class="text-muted pe-3">Email:</span>{{ contact.email }}</p>
+                        <p><span class="text-muted pe-3">Subject:</span>{{ contact.subject }}</p>
+                        <button data-toggle="modal" data-target="#deleteContactModal" data-id="{{ contact.name }}" data-url="{% url 'delete_contact' contact.id %}" class="btn content-text buttons-general text-white text-uppercase fs-6">Replied</button>
+                        <hr>
+                    {% endfor %}
+                </div>
+            {% else %}
+            <div class="col-12">
+                <p class="text-center content-text">There are no contact messages to respond to.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!--Delete Contact Modal-->
+    <div class="modal fade" id="deleteContactModal" tabindex="-1" aria-labelledby="deleteContactModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header title-text text-center">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Message</h5>
+            </div>
+            <div class="modal-body content-text text-center">
+                <p>Have you responded to <strong><span id="modalContactName"></span></strong> before you delete this message?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn content-text buttons-general text-white text-uppercase fs-6 mb-2" data-dismiss="modal">Cancel</button>
+                <a class="btn content-text delete-button text-uppercase fs-6 mb-2" id="deleteBtn">Delete Message</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+
+    <script>
+        /* 
+            When the delete modal is opened it takes the contact ID and URL
+            so the correct contact is deleted.
+            Thanks to Stack Overflow (Credited in README)
+        */
+        $('#deleteContactModal').on('shown.bs.modal', function(event) {
+            $("#modalContactName").text($(event.relatedTarget).data('id'));
+            $("#deleteBtn").attr('href', $(event.relatedTarget).data('url'));
+        });
+
+	</script>
+
+{% endblock %}

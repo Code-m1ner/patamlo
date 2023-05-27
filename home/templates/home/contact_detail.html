@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+    <div class="container mt-4 min-height">
+        <div class="row">
+            <div class="col text-center mb-3">
+                <h2 class="title-text text-uppercase">Contact Details</h2>
+                <hr class="w-50 mb-4 mx-auto">
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-12 col-lg-6 offset-lg-3 content-text">
+                <h5 class="title-text">Contact Name:</h5>
+                <p class="mb-5">{{contact.name}}</p>
+                <h5 class="title-text">Contact Email :</h5>
+                <p class="mb-5">{{contact.email}}</p>
+                <h5 class="title-text">Contact Subject:</h5>
+                <p class="mb-5">{{contact.subject}}</p>
+                <h5 class="title-text">Contact Message:</h5>
+                <p class="mb-5">{{contact.message}}</p>
+                <a href="{% url 'contact_management' %}" class="btn content-text text-black buttons-general text-uppercase my-2 px-4" role="button"><i class="fas fa-chevron-left pe-2"></i> All Contacts</a>
+                <button class="btn content-text delete-button text-uppercase fs-6 my-2 px-4" data-toggle="modal" data-target="#deleteContactModal">Delete Contact</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Delete Contact Modal-->
+    <div class="modal fade" id="deleteContactModal" tabindex="-1" aria-labelledby="deleteContactModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header title-text text-center">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Message</h5>
+            </div>
+            <div class="modal-body content-text text-center">
+                <p>Have you responded to <strong>{{ contact.name }}</strong> before you delete this message?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn content-text buttons-general text-black' text-uppercase fs-6 mb-2" data-dismiss="modal">Cancel</button>
+                <a class="btn content-text delete-button text-uppercase fs-6 mb-2" href="{% url 'delete_contact' contact.id %}">Delete Message</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
