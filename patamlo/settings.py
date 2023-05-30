@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     'contact',
     'products',
     'bag',
+    'checkout',
+    'profiles',
+
+        # other
+    'crispy_forms',
+    'storages',
 
 
 ]
@@ -58,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'patamlo.urls'
+
 
 TEMPLATES = [
     {
@@ -74,13 +80,25 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',  # When product has no image
+                'bag.contexts.bag_contents',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+
+            ]
             
         },
     },
 ]
 
+ROOT_URLCONF = 'patamlo.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 WSGI_APPLICATION = 'patamlo.wsgi.application'
+
 
 
 # Database
@@ -92,7 +110,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,3 +162,26 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+SITE_ID = 1
+
+FREE_DELIVERY_THRESHOLD = 70
+STANDARD_DELIVERY_PERCENTAGE = 10
+
+
+
+
+
+
+# Static and media files
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
