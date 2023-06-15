@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-0y5f)ok$=qy$e1y(ko2#hj$!1mk8wnd&e3a55lin%4s=8+euq_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-rj12art-patamlo-aa7j8syzwhk.ws-eu98.gitpod.io']
 
 
 # Application definition
@@ -153,7 +152,12 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-rj12art-patamlo-luo0jiigfb2.ws-eu98.gitpod.io']
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-rj12art-patamlo-z6yyh0aibv9.ws-eu99.gitpod.io',
+    # Other trusted origins...
+]
+ALLOWED_HOSTS = ['8000-rj12art-patamlo-z6yyh0aibv9.ws-eu99.gitpod.io']
+
 
 
 AUTHENTICATION_BACKENDS = (
